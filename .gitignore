@@ -27,6 +27,7 @@ test_spm.model
 *.vim
 *.swp
 *.nfs*
+build
 
 # recipe related
 egs*/*/*/data*

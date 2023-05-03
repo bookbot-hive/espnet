@@ -1,6 +1,7 @@
 # Set the path of your corpus
 # "downloads" means the corpus can be downloaded by the recipe automatically
 
+bookbot=/home/ext_gg_ananto_gmail_com/en-US-MadisonNeural/
 ACCENTED_FR=downloads
 AIDATATANG_200ZH=downloads
 AISHELL=downloads

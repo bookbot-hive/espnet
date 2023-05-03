@@ -696,7 +696,7 @@ if ! "${skip_train}"; then
         _train_dir="${data_feats}/${train_set}"
         _valid_dir="${data_feats}/${valid_set}"
         log "Stage 6: TTS Training: train_set=${_train_dir}, valid_set=${_valid_dir}"
-
+        
         _opts=
         if [ -n "${train_config}" ]; then
             # To generate the config file: e.g.
