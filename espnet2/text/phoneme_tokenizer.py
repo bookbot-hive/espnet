@@ -13,6 +13,7 @@ from espnet2.text.abs_tokenizer import AbsTokenizer
 
 g2p_choices = [
     None,
+    "bookbot_g2p",
     "g2p_en",
     "g2p_en_no_space",
     "pyopenjtalk",
@@ -45,6 +46,23 @@ g2p_choices = [
     "g2p_is",
 ]
 
+def bookbot_g2p(text: str) -> str:
+    import gruut
+
+    phonemes = []
+    for words in gruut.sentences(text):
+        for word in words:
+            if word.is_major_break or word.is_minor_break:
+                phonemes += word.text
+                phonemes += " "
+            elif word.phonemes:
+                phonemes += word.phonemes
+                phonemes += " "
+            
+    if phonemes[-1] == " ":
+        phonemes = phonemes[:-1]
+
+    return phonemes
 
 def split_by_space(text) -> List[str]:
     if "   " in text:
@@ -442,6 +460,8 @@ class PhonemeTokenizer(AbsTokenizer):
         assert check_argument_types()
         if g2p_type is None:
             self.g2p = split_by_space
+        elif g2p_type == "bookbot_g2p":
+            self.g2p = bookbot_g2p
         elif g2p_type == "g2p_en":
             self.g2p = G2p_en(no_space=False)
         elif g2p_type == "g2p_en_no_space":

@@ -20,4 +20,5 @@
     --train_set train_nodev \
     --valid_set train_dev \
     --test_sets "train_dev test" \
-    --srctexts "data/train_nodev/text"
+    --srctexts "data/train_nodev/text"\
+    --g2p bookbot_g2p
