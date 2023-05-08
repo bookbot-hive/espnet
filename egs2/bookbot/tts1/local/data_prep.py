@@ -4,17 +4,16 @@ import sys
 import random
 
 if __name__ == "__main__":
-    # if len(sys.argv) != 3:
-    #     print("Usage: python data_prep.py [data_dir]")
-    #     sys.exit(1)
+    if len(sys.argv) != 3:
+        print("Usage: python data_prep.py [data_dir] [test_percentage]")
+        sys.exit(1)
     data_dir = sys.argv[1]
-
 
     # Path to the directory where you want to create the Kaldi-like directory
     kaldi_dir = "./data"
-    # Create directories required by Kaldi
+
     # set the percentage of files to be used for testing
-    test_percentage = 0.2
+    test_percentage = sys.argv[2]
 
     # get a list of audio files and shuffle them
     audio_files = [f for f in os.listdir(data_dir) if f.endswith(".wav")]
@@ -26,8 +25,6 @@ if __name__ == "__main__":
     # split the files into training and test sets
     train_files = audio_files[num_test_files:]
     test_files = audio_files[:num_test_files]
-    # print("number of training audio: ", len(train_files))
-    # print("number of testing audio: ", len(test_files))
 
     os.makedirs(os.path.join(kaldi_dir, "train"), exist_ok=True)
     os.makedirs(os.path.join(kaldi_dir, "test"), exist_ok=True)
@@ -44,10 +41,10 @@ if __name__ == "__main__":
 
             utt_id = os.path.splitext(audio_file)[0].split("_")[1]
             spk_id = audio_file.split("_")[0]
-
-            # write the wav.scp file
+            
             audio_path = os.path.join(data_dir, audio_file)
-            # f_wav.write(f"{utt_id} sox {audio_path} -t wav - |\n")
+            
+            # write the wav.scp file
             f_wav.write(f"{utt_id} {audio_path}\n")
             # write the utt2spk file
             f_utt2spk.write(f"{utt_id} {spk_id}\n")
@@ -69,9 +66,9 @@ if __name__ == "__main__":
             utt_id = os.path.splitext(audio_file)[0].split("_")[1]
             spk_id = audio_file.split("_")[0]
 
-            # write the wav.scp file
             audio_path = os.path.join(data_dir, audio_file)
-            # f_wav.write(f"{utt_id} sox {audio_path} -t wav - |\n")
+            
+            # write the wav.scp file
             f_wav.write(f"{utt_id} {audio_path}\n")
             # write the utt2spk file
             f_utt2spk.write(f"{utt_id} {spk_id}\n")

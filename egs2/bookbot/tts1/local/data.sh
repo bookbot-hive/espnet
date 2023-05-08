@@ -33,27 +33,21 @@ fi
 
 train_set="train_nodev"
 train_dev="train_dev"
-ndev_utt=200
-
+test_percentage=${1:-0.2}
+ndev_utt=${2:-200}
 
 if [ ${stage} -le 1 ] && [ ${stop_stage} -ge 1 ]; then
     log "stage 1: Data preparation"
-    # mkdir -p data/{train,test}
+    
+    python3 local/data_prep.py ${bookbot} ${test_percentage}
 
-    # if [ ! -f ${TIDIGITS}/readme.1st ]; then
-    #     echo Cannot find TIDIGITS root! Exiting...
-    #     exit 1
-    # fi
-
-    # Prepare data in the Kaldi format, including three files:
-    # text, wav.scp, utt2spk
-    python3 local/data_prep.py ${bookbot}
-    # local/data_prep.sh "${bookbot}" data/all
-
+    
     for x in test train; do
+        # sort data
         for f in text wav.scp utt2spk; do
             sort data/${x}/${f} -o data/${x}/${f}
         done
+        # create spk2utt file
         utils/utt2spk_to_spk2utt.pl data/${x}/utt2spk > "data/${x}/spk2utt"
     done
 
