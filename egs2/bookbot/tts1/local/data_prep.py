@@ -56,7 +56,7 @@ if __name__ == "__main__":
         open(os.path.join(kaldi_dir, "test", "utt2spk"), "w") as f_utt2spk, \
         open(os.path.join(kaldi_dir, "test", "text"), "w") as f_text:
         
-        for audio_file in train_files:
+        for audio_file in test_files:
             # create the utterance and speaker IDs
             lab_file = audio_file[:-4] + ".lab"
             # Get the transcript
