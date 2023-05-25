@@ -13,7 +13,7 @@ if __name__ == "__main__":
     kaldi_dir = "./data"
 
     # set the percentage of files to be used for testing
-    test_percentage = sys.argv[2]
+    test_percentage = float(sys.argv[2])
 
     # get a list of audio files and shuffle them
     audio_files = [f for f in os.listdir(data_dir) if f.endswith(".wav")]
